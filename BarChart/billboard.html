@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="../libraries/billboard.css">
     <script src="../libraries/d3.v6.min.js"></script>
     <script src="../libraries/billboard.js"></script>
+    <script src="../jssuite.js"></script>
 </head>
 
 <body>
@@ -45,15 +46,66 @@
     </form>
     <div id='chart'></div>
     <script>
-        var chart = bb.generate({
+        const myForm = document.getElementById("fileForm");
+        const csvFile = document.getElementById("fileselector");
+        let parsedData = {};
+
+        fileForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input = csvFile.files[0];
+            const reader = new FileReader();
+            reader.readAsText(input, 'ISO-8859-1');
+
+            reader.onload = function (e) {
+                const text = e.target.result;
+                parsedData = parseCSV(text);
+                console.log(parsedData);
+                console.log(parsedData[2].Population_1968);
+                var chart = bb.generate({
+                    bindto: "#chart",
+                    data: {
+                        type: "bar",
+                        columns: [
+                            [
+                                "Year",
+                                parsedData[5].Population_1970,
+                                parsedData[5].Population_1980,
+                                parsedData[5].Population_1990,
+                                parsedData[5].Population_2000,
+                                parsedData[5].Population_2010,
+                                parsedData[5].Population_2020
+                            ]
+                        ],
+                    },
+                    axis: {
+                        x: {
+                            type: "category",
+                            categories: [
+                                "1970",
+                                "1980",
+                                "1990",
+                                "2000",
+                                "2010",
+                                "2020"
+                            ]
+                        },
+                        y: {
+                            max: 650000,
+                            min: 400000
+                        }
+                    },
+                });
+            };
+
+        });
+        /*var chart = bb.generate({
             bindto: "#chart",
             data: {
                 type: "bar",
                 columns: [
-                    ["data1", 30, 200, 100, 170, 150, 250],
-                    ["data2", 130, 100, 140, 35, 110, 50]
+                    ["Year", 30, 200, 100, 170, 150, 250]
                 ]
             }
-        });
+        });*/
     </script>
 </body>
