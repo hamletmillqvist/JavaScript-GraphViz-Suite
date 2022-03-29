@@ -1,0 +1,41 @@
+<head>
+    <title>JavaScript Suites</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="heading">
+        <h1>JavaScript Suites</h1>
+        <p>Pick the suite you want to load.</p>
+        <ul>
+            <li>Pie Chart Suite</li>
+            <li>Line Chart Suite</li>
+        </ul>
+        <ul>
+            <li><a href="../PieChart/chartjs.html">Chart.js</a></li>
+            <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
+            <li><a class="active" href="../PieChart/billboard.html">Billboard.js</a></li>
+            <li><a href="../PieChart/toastui.html">Toast UI</a></li>
+
+            <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
+            <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
+            <li><a href="../LineChart/toastui.html">Toast UI</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div id='chart'></div>
+        <script>
+            var chart = bb.generate({
+                bindto: "#chart",
+                data: {
+                    type: "bar",
+                    columns: [
+                        ["data1", 30, 200, 100, 170, 150, 250],
+                        ["data2", 130, 100, 140, 35, 110, 50]
+                    ]
+                }
+            });
+        </script>
+    </div>
+</body>
