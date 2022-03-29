@@ -126,8 +126,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Libraries
-libraries/
-
 # Backup files
 *.bak
