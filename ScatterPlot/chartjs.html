@@ -1,7 +1,6 @@
 <head>
     <title>JavaScript Suite</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="style.css">
     <script src="../libraries/chart.js/dist/chart.js"></script>
     <script src="../jssuite.js"></script>
     <script>
@@ -55,34 +54,15 @@
         const csvFile = document.getElementById("fileselector");
         let parsedData = {};
 
-        function csvToObject(fileText, delimiter = ",")
-        {
-            const columns = fileText.slice(0, fileText.indexOf('\r\n')).split(delimiter);
-            const rows = fileText.split('\r\n').slice(1, 23);
-            const arr = rows.map(function (row)
-            {
-                const values = row.split(delimiter);
-                const el = columns.reduce(function (object, header, index)
-                {
-                    object[header] = values[index];
-                    return object;
-                }, {});
-                return el;
-            });
-            return arr;
-        }
-
-        fileForm.addEventListener("submit", function (e)
-        {
+        fileForm.addEventListener("submit", function (e) {
             e.preventDefault();
             const input = csvFile.files[0];
             const reader = new FileReader();
             reader.readAsText(input, 'ISO-8859-1');
 
-            reader.onload = function (e)
-            {
+            reader.onload = function (e) {
                 const text = e.target.result;
-                parsedData = csvToObject(text);
+                parsedData = parseCSV(text);
                 console.log(parsedData);
                 console.log(parsedData[2].Population_1968);
                 const ctx = document.getElementById('chart').getContext('2d');
