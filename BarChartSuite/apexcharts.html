@@ -1,0 +1,52 @@
+<head>
+    <title>JavaScript Suite</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="node_modules/apexcharts/dist/apexcharts.js"></script>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>JavaScript Suite</h1>
+        <p>Pick the version you want to load.</p>
+        <ul>
+            <li>Bar Chart Suite</li>
+            <li>Scatter Plot Suite</li>
+        </ul>
+        <ul>
+            <li><a href="../BarChartSuite/chartjs.html">Chart.js</a></li>
+            <li><a class="active" href="../BarChartSuite/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../BarChartSuite/billboard.html">Billboard.js</a></li>
+            <li><a href="../BarChartSuite/toastui.html">Toast UI</a></li>
+
+            <li><a href="../ScatterPlotSuite/chartjs.html">Chart.js</a></li>
+            <li><a href="../ScatterPlotSuite/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../ScatterPlotSuite/billboard.html">Billboard.js</a></li>
+            <li><a href="../ScatterPlotSuite/toastui.html">Toast UI</a></li>
+        </ul>
+    </div>
+    <form id="fileForm">
+        <input id='fileselector' type="file" accept=".csv">
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+    <div id='chart'></div>
+    <script>
+        /*var options = {
+            chart: {
+                type: 'line'
+            },
+            series: [{
+                name: 'sales',
+                data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+            }],
+            xaxis: {
+                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+            }
+        }
+
+        var canvas = document.querySelector('#chart');
+        var chart = new ApexCharts(canvas, options);
+
+        chart.render();*/
+    </script>
+</body>
