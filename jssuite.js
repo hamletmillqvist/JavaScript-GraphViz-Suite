@@ -1,6 +1,47 @@
-function range(start, end) {
-    const length = end - start;
+/** BACKGROUND FUNCTIONS */
+function setAPI(choice) {
+    apiChoice = choice;
+    console.log("Api Chosen: " + apiChoice);
+}
+
+function setChartType(choice) {
+    chartType = choice;
+    console.log("Will draw: " + chartType);
+}
+
+function onFileLoaded(fileContents) {
+    switch (apiChoice) {
+        case "chartapi":
+            console.log("Making CHART JS...");
+            makeChart_ChartJS(document.getElementById('chart'), fileContents);
+            break;
+
+        case "apexcharts":
+            console.log("Making ApexChart...");
+            makeChart_ApexCharts(document.getElementById('chart'), fileContents);
+            break;
     
+        default:
+            console.error("INVALID API CHOICE: " + apiChoice);
+            break;
+    }
+    
+}
+
+function onFileSelected()
+{
+    const files = document.getElementById('fileselector').files; // FileList object
+    
+    if (files.length === 1) {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+            const data = reader.result;
+            onFileLoaded(data);
+        });
+
+        const mainFile = files.item(0);
+        reader.readAsText(mainFile, 'ISO-8859-1');
+    }
 }
 
 function parseCSV(data) {
@@ -20,7 +61,8 @@ function parseCSV(data) {
     return dataset;
 }
 
-function parsePie_chartjs(dataset) {    
+/** PIE CHART DRAWING FUNCTIONS */
+function getTotalGenders (dataset) {
     let numberMen = 0;
     let numberWomen = 0;
 
@@ -35,6 +77,12 @@ function parsePie_chartjs(dataset) {
         }
     }
 
+    return { numberMen: numberMen, numberWomen: numberWomen };
+}
+
+function parsePie_chartjs(dataset) {    
+    const totalGenders = getTotalGenders(dataset);
+
     const data = {
         labels: [
             'Men',
@@ -42,10 +90,10 @@ function parsePie_chartjs(dataset) {
         ],
         datasets: [{
             label: 'Number of registered women & men 2021',
-            data: [numberMen, numberWomen],
+            data: [totalGenders.numberMen, totalGenders.numberWomen],
             backgroundColor: [
-            'rgb(0, 0, 255)',
-            'rgb(255, 0, 0)',
+            'rgba(0,143,251)',
+            'rgba(0,227,150)',
             ],
             hoverOffset: 4
         }]
@@ -53,6 +101,21 @@ function parsePie_chartjs(dataset) {
     return data;
 }
 
+function parsePie_apexCharts(dataset) {
+    const totalGenders = getTotalGenders(dataset);
+
+    var options = {
+        chart: {
+            type: 'pie'
+        },
+        labels: ["Men", "Women"],
+        series: [totalGenders.numberMen, totalGenders.numberWomen],
+    }
+
+    return options;
+}
+
+/** LINE CHART DRAWING FUNCTIONS */
 function parseLine_chartjs(dataset) {
     let labels = [];
     for (let year = 1968; year <= 2021; year++)
@@ -103,6 +166,7 @@ function parseLine_chartjs(dataset) {
     return data;
 }
 
+/** SUITE MAIN FUNCTIONS */
 function makeChart_ChartJS(canvas, data) {
     const ctx = canvas.getContext('2d');
     const dataset = parseCSV(data);
@@ -127,42 +191,9 @@ function makeChart_ChartJS(canvas, data) {
     }
 }
 
-function setAPI(choice) {
-    apiChoice = choice;
-    console.log("Api Chosen: " + apiChoice);
-}
-
-function setChartType(choice) {
-    chartType = choice;
-    console.log("Will draw: " + chartType);
-}
-
-function onFileLoaded(fileContents) {
-    switch (apiChoice) {
-        case "chartapi":
-            console.log("Making CHART JS...");
-            makeChart_ChartJS(document.getElementById('chart'), fileContents);
-            break;
-    
-        default:
-            console.error("INVALID API CHOICE: " + apiChoice);
-            break;
-    }
-    
-}
-
-function onFileSelected()
-{
-    const files = document.getElementById('fileselector').files; // FileList object
-    
-    if (files.length === 1) {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {
-            const data = reader.result;
-            onFileLoaded(data);
-        });
-
-        const mainFile = files.item(0);
-        reader.readAsText(mainFile, 'ISO-8859-1');
-    }
+function makeChart_ApexCharts(div, data) {
+    const dataset = parseCSV(data);
+    const options = parsePie_apexCharts(dataset);
+    const chart = new ApexCharts(div, options);
+    chart.render();
 }
