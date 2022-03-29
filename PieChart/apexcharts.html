@@ -20,17 +20,17 @@
             <li><a class='active' href="../PieChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../PieChart/billboard.html">Billboard.js</a></li>
             <li><a href="../PieChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
             <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
             <li><a href="../LineChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../BarChart/chartjs.html">Chart.js</a></li>
             <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
             <li><a href="../BarChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
             <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
             <li><a href="../ScatterPlot/billboard.html">Billboard.js</a></li>
@@ -42,25 +42,9 @@
             setAPI("apexcharts");
             setChartType("pie");
         </script>
+        <div>
+            <input id='fileselector' type="file" onchange="onFileSelected()"><br>
+        </div>
         <div id='chart'></div>
-        <script>
-            var options = {
-                chart: {
-                    type: 'pie'
-                },
-                series: [{
-                    name: 'sales',
-                    data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-                }],
-                xaxis: {
-                    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-                }
-            }
-
-            var canvas = document.querySelector('#chart');
-            var chart = new ApexCharts(canvas, options);
-
-            chart.render();
-        </script>
     </div>
 </body>
