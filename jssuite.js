@@ -125,7 +125,22 @@ function makeChart_ApexCharts(div, data) {
 
 function makeChart_Billboard(bindString, data) {
     const dataset = parseCSV(data);
-    const config = parsePie_billboard(bindString, dataset);
+    var config = {}; 
+
+    switch (chartType) {
+        case "pie":
+            config = parsePie_billboard(bindString, dataset);
+            break;
+
+        case "line":
+            config = parseLine_billboard(bindString, dataset);
+            break;
+    
+        default:
+            console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
+            return;
+    }
+
     bb.generate(config);
 }
 
@@ -157,7 +172,6 @@ function parsePie_chartjs(dataset) {
             'Women',
         ],
         datasets: [{
-            label: 'Number of registered women & men 2021',
             data: [totalGenders.numberMen, totalGenders.numberWomen],
             backgroundColor: [
             'rgba(0,143,251)',
@@ -280,4 +294,28 @@ function parseLine_apexCharts(dataset) {
           categories: data.labels,
         }
     }
+}
+
+function parseLine_billboard(bindString, dataset) {
+    const data = parseLine_MakeData(dataset);
+
+    
+    
+
+    return {
+        data: {
+            x: "Years",
+            columns: [
+                ["Years"].concat(data.labels),
+                ["Men"].concat(data.menConsensus),
+                ["Women"].concat(data.womenConsensus),
+            ],
+            type: "line",
+            colors: {
+                Men: "rgba(0,143,251)",
+                Women: "rgba(0,227,150)",
+            },
+        },
+        bindto: bindString,
+    };
 }
