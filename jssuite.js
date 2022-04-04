@@ -1,3 +1,8 @@
+errorMessages = {
+    INVALID_API_CHOICE: "Invalid or no API chosen: ",
+    INVLAID_CHART_CHOICE: "No valid chart type chosen: ",
+};
+
 /** BACKGROUND FUNCTIONS */
 function setAPI(choice) {
     apiChoice = choice;
@@ -33,10 +38,9 @@ function onFileLoaded(fileContents) {
             break;
 
         default:
-            console.error("INVALID API CHOICE: " + apiChoice);
+            console.error(errorMessages.INVALID_API_CHOICE + apiChoice);
             break;
     }
-    
 }
 
 function onFileSelected()
@@ -92,7 +96,7 @@ function makeChart_ChartJS(canvas, data) {
             break;
     
         default:
-            console.log("NO CHART TYPE SELECTED!");
+            console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
             break;
     }
 }
@@ -111,7 +115,7 @@ function makeChart_ApexCharts(div, data) {
             break;
     
         default:
-            console.log("NO CHART TYPE SELECTED!");
+            console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
             return;
     }
 
