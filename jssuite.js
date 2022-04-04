@@ -20,7 +20,18 @@ function onFileLoaded(fileContents) {
             console.log("Making ApexChart...");
             makeChart_ApexCharts(document.getElementById('chart'), fileContents);
             break;
-    
+
+        case "billboard":
+            console.log("Making Billboard...");
+            makeChart_Billboard('#chart', fileContents);
+            break;
+
+        case "toastui":
+            console.error("NOT IMPLEMENTED!");
+            console.log("Making ToastUI...");
+            makeChart_ToastUI();
+            break;
+
         default:
             console.error("INVALID API CHOICE: " + apiChoice);
             break;
@@ -59,6 +70,44 @@ function parseCSV(data) {
     });
 
     return dataset;
+}
+
+/** SUITE MAIN FUNCTIONS */
+function makeChart_ChartJS(canvas, data) {
+    const ctx = canvas.getContext('2d');
+    const dataset = parseCSV(data);
+    const config = { type: undefined, data: undefined };
+
+    switch (chartType) {
+        case "pie":
+            config.type = "pie";
+            config.data = parsePie_chartjs(dataset);
+            new Chart(ctx, config);
+            break;
+
+        case "line":
+            config.type = "line";
+            config.data = parseLine_chartjs(dataset);
+            new Chart(ctx, config);
+            break;
+    
+        default:
+            console.log("NO CHART TYPE SELECTED!");
+            break;
+    }
+}
+
+function makeChart_ApexCharts(div, data) {
+    const dataset = parseCSV(data);
+    const options = parsePie_apexCharts(dataset);
+    const chart = new ApexCharts(div, options);
+    chart.render();
+}
+
+function makeChart_Billboard(bindString, data) {
+    const dataset = parseCSV(data);
+    const config = parsePie_billboard(bindString, dataset);
+    bb.generate(config);
 }
 
 /** PIE CHART DRAWING FUNCTIONS */
@@ -115,6 +164,25 @@ function parsePie_apexCharts(dataset) {
     return options;
 }
 
+function parsePie_billboard(bindString, dataset) {
+    const totalGenders = getTotalGenders(dataset);
+
+    return {
+        data: {
+            columns: [
+                ["Men", totalGenders.numberMen],
+                ["Women", totalGenders.numberWomen]
+            ],
+            type: "pie",
+            colors: {
+                Men: "rgba(0,143,251)",
+                Women: "rgba(0,227,150)",
+            },
+        },
+        bindto: bindString
+    };
+}
+
 /** LINE CHART DRAWING FUNCTIONS */
 function parseLine_chartjs(dataset) {
     let labels = [];
@@ -164,36 +232,4 @@ function parseLine_chartjs(dataset) {
         }]
     };
     return data;
-}
-
-/** SUITE MAIN FUNCTIONS */
-function makeChart_ChartJS(canvas, data) {
-    const ctx = canvas.getContext('2d');
-    const dataset = parseCSV(data);
-    const config = { type: undefined, data: undefined };
-
-    switch (chartType) {
-        case "pie":
-            config.type = "pie";
-            config.data = parsePie_chartjs(dataset);
-            new Chart(ctx, config);
-            break;
-
-        case "line":
-            config.type = "line";
-            config.data = parseLine_chartjs(dataset);
-            new Chart(ctx, config);
-            break;
-    
-        default:
-            console.log("NO CHART TYPE SELECTED!");
-            break;
-    }
-}
-
-function makeChart_ApexCharts(div, data) {
-    const dataset = parseCSV(data);
-    const options = parsePie_apexCharts(dataset);
-    const chart = new ApexCharts(div, options);
-    chart.render();
 }

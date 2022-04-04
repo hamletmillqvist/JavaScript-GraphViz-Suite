@@ -1,6 +1,10 @@
 <head>
     <title>JavaScript Suites</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../libraries/billboard.css">
+    <script src="../libraries/d3.v6.min.js"></script>
+    <script src="../libraries/billboard.js"></script>
+    <script src="../jssuite.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -18,17 +22,17 @@
             <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
             <li><a class='active' href="../PieChart/billboard.html">Billboard.js</a></li>
             <li><a href="../PieChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
             <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
             <li><a href="../LineChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../BarChart/chartjs.html">Chart.js</a></li>
             <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
             <li><a href="../BarChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
             <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
             <li><a href="../ScatterPlot/billboard.html">Billboard.js</a></li>
@@ -36,18 +40,13 @@
         </ul>
     </div>
     <div class="content">
-        <div id='chart'></div>
         <script>
-            var chart = bb.generate({
-                bindto: "#chart",
-                data: {
-                    type: "bar",
-                    columns: [
-                        ["data1", 30, 200, 100, 170, 150, 250],
-                        ["data2", 130, 100, 140, 35, 110, 50]
-                    ]
-                }
-            });
+            setAPI("billboard");
+            setChartType("pie");
         </script>
+        <div>
+            <input id='fileselector' type="file" onchange="onFileSelected()"><br>
+        </div>
+        <div id='chart'></div>
     </div>
 </body>
