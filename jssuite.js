@@ -196,6 +196,25 @@ function parsePie_billboard(bindString, dataset) {
     };
 }
 
+function parsePie_billboard(bindString, dataset) {
+    const totalGenders = getTotalGenders(dataset);
+
+    return {
+        data: {
+            columns: [
+                ["Men", totalGenders.numberMen],
+                ["Women", totalGenders.numberWomen]
+            ],
+            type: "pie",
+            colors: {
+                Men: "rgba(0,143,251)",
+                Women: "rgba(0,227,150)",
+            },
+        },
+        bindto: bindString
+    };
+}
+
 /** LINE CHART DRAWING FUNCTIONS */
 function parseLine_MakeData(dataset) {
     const lenght = 2021 - 1968 + 1;
