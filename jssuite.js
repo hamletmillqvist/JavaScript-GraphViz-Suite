@@ -99,7 +99,22 @@ function makeChart_ChartJS(canvas, data) {
 
 function makeChart_ApexCharts(div, data) {
     const dataset = parseCSV(data);
-    const options = parsePie_apexCharts(dataset);
+    let options = {};
+
+    switch (chartType) {
+        case "pie":
+            options = parsePie_apexCharts(dataset);
+            break;
+
+        case "line":
+            options = parseLine_apexCharts(dataset);
+            break;
+    
+        default:
+            console.log("NO CHART TYPE SELECTED!");
+            return;
+    }
+
     const chart = new ApexCharts(div, options);
     chart.render();
 }
@@ -111,7 +126,7 @@ function makeChart_Billboard(bindString, data) {
 }
 
 /** PIE CHART DRAWING FUNCTIONS */
-function getTotalGenders (dataset) {
+function parsePie_getTotalGenders (dataset) {
     let numberMen = 0;
     let numberWomen = 0;
 
@@ -130,7 +145,7 @@ function getTotalGenders (dataset) {
 }
 
 function parsePie_chartjs(dataset) {    
-    const totalGenders = getTotalGenders(dataset);
+    const totalGenders = parsePie_getTotalGenders(dataset);
 
     const data = {
         labels: [
@@ -151,21 +166,19 @@ function parsePie_chartjs(dataset) {
 }
 
 function parsePie_apexCharts(dataset) {
-    const totalGenders = getTotalGenders(dataset);
+    const totalGenders = parsePie_getTotalGenders(dataset);
 
-    var options = {
+    return {
         chart: {
             type: 'pie'
         },
         labels: ["Men", "Women"],
         series: [totalGenders.numberMen, totalGenders.numberWomen],
     }
-
-    return options;
 }
 
 function parsePie_billboard(bindString, dataset) {
-    const totalGenders = getTotalGenders(dataset);
+    const totalGenders = parsePie_getTotalGenders(dataset);
 
     return {
         data: {
@@ -184,14 +197,17 @@ function parsePie_billboard(bindString, dataset) {
 }
 
 /** LINE CHART DRAWING FUNCTIONS */
-function parseLine_chartjs(dataset) {
-    let labels = [];
-    for (let year = 1968; year <= 2021; year++)
-        labels.push(year);
+function parseLine_MakeData(dataset) {
+    const lenght = 2021 - 1968 + 1;
+    let data = {
+        labels: [],
+        menConsensus: Array(lenght).fill(0),
+        womenConsensus: Array(lenght).fill(0),
+    };
 
-    let lenght = 2021 - 1968 + 1;
-    let menConsensus = Array(lenght).fill(0);
-    let womenConsensus = Array(lenght).fill(0);
+    for (let year = 1968; year <= 2021; year++)
+        data.labels.push(year);
+
 
     let isMen = true;
 
@@ -206,30 +222,58 @@ function parseLine_chartjs(dataset) {
             const entry = entries[j];
 
             if (isMen) {
-                menConsensus[j - 2] += parseInt(entry[1]);
+                data.menConsensus[j - 2] += parseInt(entry[1]);
             } else {
-                womenConsensus[j - 2] += parseInt(entry[1]);
+                data.womenConsensus[j - 2] += parseInt(entry[1]);
             }
         }
 
         isMen = !isMen;
     }
 
-    const data = {
-        labels: labels,
+    return data;
+}
+
+function parseLine_chartjs(dataset) {
+    const data = parseLine_MakeData(dataset);
+
+    return {
+        labels: data.labels,
         datasets: [{
             label: '# of Men',
-            data: menConsensus,
+            data: data.menConsensus,
             fill: false,
-            borderColor: 'rgb(0, 0, 255)',
+            borderColor: 'rgba(0,143,251)',
             tension: 0.1
         }, {
             label: '# of Women',
-            data: womenConsensus,
+            data: data.womenConsensus,
             fill: false,
-            borderColor: 'rgb(255, 0, 0)',
+            borderColor: 'rgba(0,227,150)',
             tension: 0.1
         }]
     };
-    return data;
+}
+
+function parseLine_apexCharts(dataset) {
+    const data = parseLine_MakeData(dataset);
+
+    return {
+        chart: {
+            type: 'line'
+        },
+        series: [
+            {
+                name: "# of Men",
+                data: data.menConsensus
+            },
+            {
+                name: "# of Women",
+                data: data.womenConsensus
+            },
+        ],
+        xaxis: {
+          categories: data.labels,
+        }
+    }
 }

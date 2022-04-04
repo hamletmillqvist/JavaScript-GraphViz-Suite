@@ -1,0 +1,50 @@
+<head>
+    <title>JavaScript Suites</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../libraries/apexcharts/dist/apexcharts.js"></script>
+    <script src="../jssuite.js" charset="UTF-8"></script>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>JavaScript Suites</h1>
+        <p>Pick the suite you want to load.</p>
+        <ul>
+            <li>Pie Chart Suite</li>
+            <li>Line Chart Suite</li>
+            <li>Bar Chart</li>
+            <li>Scatter Plot</li>
+        </ul>
+        <ul>
+            <li><a href="../PieChart/chartjs.html">Chart.js</a></li>
+            <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../PieChart/billboard.html">Billboard.js</a></li>
+            <li><a href="../PieChart/toastui.html">Toast UI</a></li>
+
+            <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
+            <li><a class='active' href="../LineChart/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
+            <li><a href="../LineChart/toastui.html">Toast UI</a></li>
+
+            <li><a href="../BarChart/chartjs.html">Chart.js</a></li>
+            <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
+            <li><a href="../BarChart/toastui.html">Toast UI</a></li>
+
+            <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
+            <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
+            <li><a href="../ScatterPlot/billboard.html">Billboard.js</a></li>
+            <li><a href="../ScatterPlot/toastui.html">Toast UI</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <script>
+            setAPI("apexcharts");
+            setChartType("line");
+        </script>
+        <div>
+            <input id='fileselector' type="file" onchange="onFileSelected()"><br>
+        </div>
+        <div id='chart'></div>
+    </div>
+</body>
