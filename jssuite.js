@@ -32,9 +32,8 @@ function onFileLoaded(fileContents) {
             break;
 
         case "toastui":
-            console.error("NOT IMPLEMENTED!");
             console.log("Making ToastUI...");
-            makeChart_ToastUI();
+            makeChart_toastUI(document.getElementById('chart'), fileContents);
             break;
 
         default:
@@ -144,6 +143,38 @@ function makeChart_Billboard(bindString, data) {
     bb.generate(config);
 }
 
+function makeChart_toastUI(div, data) {
+	const dataset = parseCSV(data);
+	const chart = toastui.Chart;
+	let chartData = {};
+	
+	switch (chartType) {
+        case "pie":
+			chart.pieChart({
+				el: div,
+				data: parsePie_toastUI(dataset),
+				options: {
+					
+				},
+			});
+            break;
+
+        case "line":
+            chart.lineChart({
+				el: div,
+				data: parseLine_toastUI(dataset),
+				options: {
+					
+				},
+			});
+            break;
+    
+        default:
+            console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
+            return;
+    }	
+}
+
 /** PIE CHART DRAWING FUNCTIONS */
 function parsePie_getTotalGenders (dataset) {
     let numberMen = 0;
@@ -212,6 +243,24 @@ function parsePie_billboard(bindString, dataset) {
         },
         bindto: bindString
     };
+}
+
+function parsePie_toastUI(dataset) {
+	const totalGenders = parsePie_getTotalGenders(dataset);
+	
+	return {
+	  categories: ['Gender'],
+	  series: [
+		{
+		  name: 'Male',
+		  data: totalGenders.numberMen,
+		},
+		{
+		  name: 'Female',
+		  data: totalGenders.numberWomen,
+		}
+	  ]
+	};
 }
 
 /** LINE CHART DRAWING FUNCTIONS */
@@ -298,10 +347,7 @@ function parseLine_apexCharts(dataset) {
 
 function parseLine_billboard(bindString, dataset) {
     const data = parseLine_MakeData(dataset);
-
-    
-    
-
+	
     return {
         data: {
             x: "Years",
@@ -318,4 +364,22 @@ function parseLine_billboard(bindString, dataset) {
         },
         bindto: bindString,
     };
+}
+
+function parseLine_toastUI(dataset) {
+	const data = parseLine_MakeData(dataset);
+	
+	return {
+	  categories: data.labels,
+	  series: [
+		{
+		  name: '# of Men',
+		  data: data.menConsensus,
+		},
+		{
+		  name: '# of Women',
+		  data: data.womenConsensus,
+		},
+	  ],
+	};
 }
