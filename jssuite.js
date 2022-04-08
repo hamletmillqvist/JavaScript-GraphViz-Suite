@@ -3,6 +3,16 @@ errorMessages = {
     INVLAID_CHART_CHOICE: "No valid chart type chosen: ",
 };
 
+timer = {
+	timeStamp_start: 0,
+	timeStamp_stop: 0,
+	elapsed: function () { return this.timeStamp_stop - this.timeStamp_start; },
+	
+	start: function () { this.timeStamp_start = performance.now(); },
+	stop: function () { this.timeStamp_stop = performance.now(); },
+	print: function () { console.log("Elapsed Time: " + timer.elapsed() + " ms"); }
+}
+
 /** BACKGROUND FUNCTIONS */
 function setAPI(choice) {
     apiChoice = choice;
@@ -85,19 +95,25 @@ function makeChart_ChartJS(canvas, data) {
         case "pie":
             config.type = "pie";
             config.data = parsePie_chartjs(dataset);
+			timer.start();
             new Chart(ctx, config);
+			timer.stop();
             break;
 
         case "line":
             config.type = "line";
             config.data = parseLine_chartjs(dataset);
+			timer.start();
             new Chart(ctx, config);
+			timer.stop();
             break;
     
         default:
             console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
-            break;
+            return;
     }
+	
+	timer.print();
 }
 
 function makeChart_ApexCharts(div, data) {
@@ -117,9 +133,12 @@ function makeChart_ApexCharts(div, data) {
             console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
             return;
     }
-
+	
     const chart = new ApexCharts(div, options);
+	timer.start();
     chart.render();
+	timer.stop();
+	timer.print();
 }
 
 function makeChart_Billboard(bindString, data) {
@@ -140,7 +159,10 @@ function makeChart_Billboard(bindString, data) {
             return;
     }
 
+	timer.start();
     bb.generate(config);
+	timer.stop();
+	timer.print();
 }
 
 function makeChart_toastUI(div, data) {
@@ -150,6 +172,7 @@ function makeChart_toastUI(div, data) {
 	
 	switch (chartType) {
         case "pie":
+			timer.start();
 			chart.pieChart({
 				el: div,
 				data: parsePie_toastUI(dataset),
@@ -157,9 +180,11 @@ function makeChart_toastUI(div, data) {
 					
 				},
 			});
+			timer.stop();
             break;
 
         case "line":
+			timer.start();
             chart.lineChart({
 				el: div,
 				data: parseLine_toastUI(dataset),
@@ -167,12 +192,15 @@ function makeChart_toastUI(div, data) {
 					
 				},
 			});
+			timer.stop();
             break;
     
         default:
             console.log(errorMessages.INVLAID_CHART_CHOICE + chartType);
             return;
     }	
+	
+	timer.print();
 }
 
 /** PIE CHART DRAWING FUNCTIONS */
