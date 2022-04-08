@@ -1,10 +1,9 @@
 <head>
     <title>JavaScript Suites</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../libraries/billboard.css">
-    <script src="../libraries/d3.v6.min.js"></script>
-    <script src="../libraries/billboard.js"></script>
-    <script src="../jssuite.js" charset="UTF-8"></script>
+	<link rel="stylesheet" href="../libraries/@toast-ui/chart/dist/toastui-chart.css">
+	<script src="../libraries/@toast-ui/chart/dist/toastui-chart.js"></script>
+	<script src="../jssuite.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -20,19 +19,19 @@
         <ul>
             <li><a href="../PieChart/chartjs.html">Chart.js</a></li>
             <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
-            <li><a class='active' href="../PieChart/billboard.html">Billboard.js</a></li>
+            <li><a href="../PieChart/billboard.html">Billboard.js</a></li>
             <li><a href="../PieChart/toastui.html">Toast UI</a></li>
-
+            
             <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
             <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../LineChart/toastui.html">Toast UI</a></li>
-
+            <li><a class="active" href="../LineChart/toastui.html">Toast UI</a></li>
+            
             <li><a href="../BarChart/chartjs.html">Chart.js</a></li>
             <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
             <li><a href="../BarChart/toastui.html">Toast UI</a></li>
-
+            
             <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
             <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
             <li><a href="../ScatterPlot/billboard.html">Billboard.js</a></li>
@@ -41,8 +40,8 @@
     </div>
     <div class="content">
         <script>
-            setAPI("billboard");
-            setChartType("pie");
+            setAPI("toastui");
+            setChartType("line");
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>
