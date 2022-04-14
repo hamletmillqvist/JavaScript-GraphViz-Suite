@@ -32,11 +32,13 @@
             <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
             <li><a href="../BarChart/toastui.html">Toast UI</a></li>
+            <li><a href="../BarChart/chartist.html">Chartist.js</a></li>
 
             <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
             <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
             <li><a class="active" href="../ScatterPlot/billboard.html">Billboard.js</a></li>
             <li><a href="../ScatterPlot/toastui.html">Toast UI</a></li>
+            <li><a href="../ScatterPlot/chartist.html">Chartist.js</a></li>
         </ul>
     </div>
     <form id="fileForm">
@@ -61,6 +63,8 @@
                 parsedData = parseCSV(text);
                 console.log(parsedData);
                 console.log(parsedData[2].Population_1968);
+
+                timer.start();
                 var chart = bb.generate({
                     bindto: "#chart",
                     data: {
@@ -95,6 +99,8 @@
                         }
                     },
                 });
+                timer.stop();
+                timer.print();
             };
         });
     </script>
