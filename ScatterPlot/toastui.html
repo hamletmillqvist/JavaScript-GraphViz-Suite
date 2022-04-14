@@ -86,8 +86,10 @@
                         }
                     }
                 };
-
+                timer.start();
                 chart.scatterChart({ el, data, options });
+                timer.stop();
+                timer.print();
             };
         });
     </script>

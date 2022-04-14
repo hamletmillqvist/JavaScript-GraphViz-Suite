@@ -61,6 +61,8 @@
                 parsedData = parseCSV(text);
                 console.log(parsedData);
                 console.log(parsedData[2].Population_1968);
+
+                timer.start();
                 var chart = bb.generate({
                     bindto: "#chart",
                     data: {
@@ -95,6 +97,8 @@
                         }
                     },
                 });
+                timer.stop();
+                timer.print();
             };
         });
     </script>

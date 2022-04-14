@@ -66,6 +66,7 @@
                 console.log(parsedData);
                 console.log(parsedData[2].Population_1968);
                 const ctx = document.getElementById('chart').getContext('2d');
+                timer.start();
                 const chart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -107,6 +108,8 @@
                         }
                     }
                 });
+                timer.stop();
+                timer.print();
             };
 
         });

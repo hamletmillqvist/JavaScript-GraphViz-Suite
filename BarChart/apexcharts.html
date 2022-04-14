@@ -88,7 +88,10 @@
                 var canvas = document.querySelector('#chart');
                 var chart = new ApexCharts(canvas, options);
 
+                timer.start();
                 chart.render();
+                timer.stop();
+                timer.print();
             };
         });
     </script>
