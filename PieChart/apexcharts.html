@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="../style.css">
     <script src="../libraries/apexcharts/dist/apexcharts.js"></script>
     <script src="../jssuite.js" charset="UTF-8"></script>
+    <script src="piechart.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -39,8 +40,7 @@
     </div>
     <div class="content">
         <script>
-            setAPI("apexcharts");
-            setChartType("pie");
+            makeChart.library = "apexCharts";
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>
