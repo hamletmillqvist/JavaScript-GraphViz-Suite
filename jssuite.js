@@ -22,6 +22,8 @@ timer = {
     }
 }
 
+dataset = {}
+
 makeChart = {
     library: undefined,
 
@@ -34,23 +36,32 @@ makeChart = {
 
 function onFileSelected() {
     const files = document.getElementById('fileselector').files; // FileList object
+    const mainFile = files.item(0);
     
     if (files.length === 1) {
         const reader = new FileReader();
         reader.addEventListener("load", () => {
-            const data = reader.result;
-            const dataset = parseCSV(data);
+
+            const extention = mainFile.name.split('.')[1];
+            switch (extention.toLowerCase()) {
+                case "csv":
+                    dataset = parseCSV(reader.result);
+                    break;
+
+                default:
+                    console.error("UNKNOWN FILETYPE! ONLY ACCEPTS .CSV!");
+                    break;
+            }
 
             // Wacky function hack
             // Reads dict at string location and returns
-            // the function object and then calls it.
+            // the object and then calls it like a function.
             // 
             // This looks better than several switch cases.
             // I swear!
             makeChart[makeChart.library](dataset);
         });
 
-        const mainFile = files.item(0);
         reader.readAsText(mainFile, 'ISO-8859-1');
     }
 }
@@ -60,7 +71,7 @@ function parseCSV(data) {
     const columns = data.slice(0, data.indexOf('\r\n')).split(',');
     const rows = data.split('\r\n').slice(1);
 
-    const dataset = rows.map(function (row) {
+    return rows.map(function (row) {
         const values = row.split(',');
         const el = columns.reduce(function (object, header, index) {
             let value = values[index];
@@ -74,6 +85,4 @@ function parseCSV(data) {
         }, {});
         return el;
     });
-
-    return dataset;
 }

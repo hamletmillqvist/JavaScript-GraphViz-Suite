@@ -1,6 +1,6 @@
 seriesCount = 10;
 
-function getPieData(dataset) {
+function getPieData() {
     votes = [];
 
     if (seriesCount == 0) {
@@ -8,13 +8,13 @@ function getPieData(dataset) {
     }
 
     for (let i = 0; i < seriesCount; i++) {
-        votes.push(dataset[i]['votes_up'])
+        votes.push(dataset[i]['Units Sold'])
     }
 
     return votes;
 }
 
-makeChart.chartjs = (dataset) => {    
+makeChart.chartjs = () => {    
     const div = document.getElementById('chart');
     const config = {
             type: 'pie',
@@ -35,7 +35,7 @@ makeChart.chartjs = (dataset) => {
     timer.print();
 }
 
-makeChart.apexCharts = (dataset) => {
+makeChart.apexCharts = () => {
     const div = document.getElementById('chart');
     const options = {
         chart: {
@@ -53,7 +53,7 @@ makeChart.apexCharts = (dataset) => {
 	timer.print();
 }
 
-makeChart.billboard = (dataset) => {
+makeChart.billboard = () => {
     const data = getPieData(dataset);
     series = [];
     for (let i = 0; i < data.length; i++) {
@@ -79,7 +79,7 @@ makeChart.billboard = (dataset) => {
     timer.print();
 }
 
-makeChart.toastUI = (dataset) => {
+makeChart.toastUI = () => {
     const div = document.getElementById('chart');
     const data = getPieData(dataset);
     series = [];
