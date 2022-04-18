@@ -5,6 +5,7 @@
     <script src="../libraries/d3.v6.min.js"></script>
     <script src="../libraries/billboard.js"></script>
     <script src="../jssuite.js" charset="UTF-8"></script>
+    <script src="piechart.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -41,8 +42,7 @@
     </div>
     <div class="content">
         <script>
-            setAPI("billboard");
-            setChartType("pie");
+            makeChart.library = "billboard";
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>

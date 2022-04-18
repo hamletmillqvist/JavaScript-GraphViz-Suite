@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="../style.css">
     <script src="../libraries/chart.js/dist/chart.js"></script>
     <script src="../jssuite.js" charset="UTF-8"></script>
+    <script src="piechart.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -20,17 +21,17 @@
             <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../PieChart/billboard.html">Billboard.js</a></li>
             <li><a href="../PieChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
             <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
             <li><a href="../LineChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../BarChart/chartjs.html">Chart.js</a></li>
             <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
             <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
             <li><a href="../BarChart/toastui.html">Toast UI</a></li>
-            
+
             <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
             <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
             <li><a href="../ScatterPlot/billboard.html">Billboard.js</a></li>
@@ -39,8 +40,7 @@
     </div>
     <div class="content">
         <script>
-            setAPI("chartapi");
-            setChartType("pie");
+            makeChart.library = "chartjs";
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>
