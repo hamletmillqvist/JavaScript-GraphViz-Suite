@@ -5,12 +5,14 @@
     <script src="../libraries/d3.v6.min.js"></script>
     <script src="../libraries/billboard.js"></script>
     <script src="../jssuite.js" charset="UTF-8"></script>
+    <script src="linechart.js" charset="UTF-8"></script>
 </head>
 
 <body>
     <div class="heading">
         <h1>JavaScript Suites</h1>
         <p>Pick the suite you want to load.</p>
+        <p id='output'></p>
         <ul>
             <li>Pie Chart Suite</li>
             <li>Line Chart Suite</li>
@@ -23,8 +25,7 @@
     </div>
     <div class="content">
         <script>
-            setAPI("billboard");
-            setChartType("line");
+            makeChart.library = "billboard";
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>

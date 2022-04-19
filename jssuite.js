@@ -19,10 +19,21 @@ timer = {
 	print: function () { 
         console.log("Elapsed tick: " + timer.elapsed(this.timeStamp_tick) + " ms");
         console.log("Elapsed total: " + timer.elapsed(this.timeStamp_stop) + " ms");
+    },
+    write: function() {
+        document.getElementById('output').innerHTML = `Elapsed tick: ${timer.elapsed(this.timeStamp_tick)}ms<br>Elapsed total: ${timer.elapsed(this.timeStamp_stop)}ms`;
     }
 }
 
 dataset = {}
+
+function getHeight() {
+    return document.getElementById('chart').style.height;
+}
+
+function getWidth() {
+    return document.getElementById('chart').style.width;
+}
 
 function createMenu(thisID) {
     document.write(`\

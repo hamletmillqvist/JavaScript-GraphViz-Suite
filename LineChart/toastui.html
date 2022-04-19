@@ -4,12 +4,14 @@
     <link rel="stylesheet" href="../libraries/@toast-ui/chart/dist/toastui-chart.css">
     <script src="../libraries/@toast-ui/chart/dist/toastui-chart.js"></script>
     <script src="../jssuite.js" charset="UTF-8"></script>
+    <script src="linechart.js" charset="UTF-8"></script>
 </head>
 
 <body>
     <div class="heading">
         <h1>JavaScript Suites</h1>
         <p>Pick the suite you want to load.</p>
+        <p id='output'></p>
         <ul>
             <li>Pie Chart Suite</li>
             <li>Line Chart Suite</li>
@@ -22,8 +24,7 @@
     </div>
     <div class="content">
         <script>
-            setAPI("toastui");
-            setChartType("line");
+            makeChart.library = "toastUI";
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>

@@ -33,6 +33,7 @@ makeChart.chartjs = () => {
     new Chart(div, config); // ASSEMBLING AND RENDERING
     timer.stop();
     timer.print();
+    timer.write();
 }
 
 makeChart.apexCharts = () => {
@@ -51,6 +52,7 @@ makeChart.apexCharts = () => {
     chart.render(); // RENDERING
 	timer.stop();
 	timer.print();
+    timer.write();
 }
 
 makeChart.billboard = () => {
@@ -77,6 +79,7 @@ makeChart.billboard = () => {
     bb.generate(config);
     timer.stop();
     timer.print();
+    timer.write();
 }
 
 makeChart.toastUI = () => {
@@ -104,6 +107,7 @@ makeChart.toastUI = () => {
     });
     timer.stop();
     timer.print();
+    timer.write();
 }
 
 makeChart.chartist = () => {
@@ -115,4 +119,5 @@ makeChart.chartist = () => {
     new Chartist.Pie('#chart', data);
     timer.stop();
     timer.print();
+    timer.write();
 }
