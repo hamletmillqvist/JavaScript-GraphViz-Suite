@@ -105,3 +105,14 @@ makeChart.toastUI = () => {
     timer.stop();
     timer.print();
 }
+
+makeChart.chartist = () => {
+    var data = {
+        series: getPieData(dataset),
+    }
+
+    timer.start();
+    new Chartist.Pie('#chart', data);
+    timer.stop();
+    timer.print();
+}
