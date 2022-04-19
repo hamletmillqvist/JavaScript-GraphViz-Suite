@@ -1,7 +1,7 @@
 seriesCount = 10;
 
 function getPieData() {
-    votes = [];
+    var votes = [];
 
     if (seriesCount == 0) {
         seriesCount = dataset.length;
