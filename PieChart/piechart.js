@@ -1,36 +1,43 @@
 seriesCount = 10;
 
 function getPieData() {
-    var votes = [];
+    var data = [];
 
     if (seriesCount == 0) {
         seriesCount = dataset.length;
     }
 
     for (let i = 0; i < seriesCount; i++) {
-        votes.push(dataset[i]['Units Sold'])
+        data.push(dataset[i]['Units Sold'])
     }
 
-    return votes;
+    return data;
 }
 
 makeChart.chartjs = () => {    
-    const div = document.getElementById('chart');
+    const canvas = document.getElementById('chart');
     const config = {
-            type: 'pie',
-            data: {
-            //labels: [],
+        type: 'pie',
+        data: {
             datasets: [
                 {
                     data: getPieData(dataset),
                     hoverOffset: 4,
+                    backgroundColor: makeColorArray(seriesCount),
                 }
-            ],
+            ]
         },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+        },
+    };
+    const options = {
+        animations: false
     };
 
     timer.start();
-    new Chart(div, config); // ASSEMBLING AND RENDERING
+    new Chart(canvas, config, options); // ASSEMBLING AND RENDERING
     timer.stop();
     timer.print();
     timer.write();
@@ -40,10 +47,18 @@ makeChart.apexCharts = () => {
     const div = document.getElementById('chart');
     const options = {
         chart: {
-            type: 'pie'
+            type: 'pie',
+            width: getWidth(),
+            height: getHeight(),
         },
-        //labels: [],
         series: getPieData(dataset),
+        colors: makeColorArray(seriesCount),
+        dataLabels: {
+            enabled: false,
+        },
+        legend: {
+            show: false
+        },
     }
 
 	timer.start();
@@ -57,22 +72,32 @@ makeChart.apexCharts = () => {
 
 makeChart.billboard = () => {
     const data = getPieData(dataset);
-    series = [];
+    let series = [];
+    let colors = {};
+
     for (let i = 0; i < data.length; i++) {
-        serie = [String(i), data[i]];
+        let indexString = String(i); // instead of 2 conversions
+        let serie = [indexString, data[i]];
         series.push(serie);
+
+        colors[indexString] = getColor();
     }
 
     const config = {
         data: {
             columns: series,
             type: "pie",
-            //colors: {
-            //    "1": "rgba(0,143,251)",
-            //    "2": "rgba(0,227,150)",
-            //},
+            colors: colors,
         },
-        bindto: '#chart'
+        bindto: '#chart',
+        legend: {
+            show: false,
+        },
+        pie: {
+            label: {
+                show: false,
+            }
+        }
     };
 
     timer.start();
@@ -102,7 +127,21 @@ makeChart.toastUI = () => {
             series: series,
         },
         options: {
-            
+            char: {
+                width: getWidth(),
+                height: getHeight(),
+            },
+            series: {
+
+            },
+            legend: {
+                visible: false,
+            },
+            theme: {
+                series: {
+                    colors: makeColorArray(seriesCount),
+                }
+            }
         },
     });
     timer.stop();
@@ -111,12 +150,43 @@ makeChart.toastUI = () => {
 }
 
 makeChart.chartist = () => {
-    var data = {
-        series: getPieData(dataset),
+    const pieData = getPieData();
+    let series = [];
+
+    function colorName(hex) {
+        switch (hex.toLowerCase()) {
+            case "#ff0000":
+                return "red"
+
+            case "#00ff00":
+                return "green";
+
+            case "#0000ff":
+                return "blue";
+        
+            default:
+                return "gray";
+        }
     }
 
+    pieData.forEach(element => {
+        let serie = {};
+        serie['value'] = element;
+        serie['className'] = colorName(getColor());
+        series.push(serie);
+    });
+
+    var data = {
+        series: series,
+    };
+    const options = {
+        width: getWidth(),
+        height: getHeight(),
+        showLabel: false,
+    };
+
     timer.start();
-    new Chartist.Pie('#chart', data);
+    new Chartist.Pie('#chart', data, options);
     timer.stop();
     timer.print();
     timer.write();

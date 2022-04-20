@@ -51,6 +51,26 @@ li .active {
     width: 100%;
 }
 
+.red {
+    stroke: white;
+    fill: #ff0000;
+}
+
+.green {
+    stroke: white;
+    fill: #00ff00;
+}
+
+.blue {
+    stroke: white;
+    fill: #0000ff;
+}
+
+.gray {
+    stroke: white;
+    fill: gray;
+}
+
 #chart {
     border: 1px solid black;
     width: 600px !important;
