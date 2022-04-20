@@ -1,7 +1,8 @@
 <head>
     <title>JavaScript Suites</title>
     <link rel="stylesheet" href="../style.css">
-    <script src="../libraries/chart.js/dist/chart.js"></script>
+    <link rel="stylesheet" href="../libraries/chartist/dist/chartist.min.css">
+    <script src="../libraries/chartist/dist/chartist.min.js"></script>
     <script src="../jssuite.js" charset="UTF-8"></script>
     <script src="piechart.js" charset="UTF-8"></script>
 </head>
@@ -18,16 +19,16 @@
             <li>Scatter Plot</li>
         </ul>
         <ul>
-            <script>createMenu('pie_Chart')</script>
+            <script>createMenu('pie_Chartist')</script>
         </ul>
     </div>
     <div class="content">
         <script>
-            makeChart.library = "chartjs";
+            makeChart.library = "chartist";
         </script>
         <div>
             <input id='fileselector' type="file" onchange="onFileSelected()"><br>
         </div>
-        <canvas id='chart'></canvas>
+        <div id='chart'></div>
     </div>
 </body>
