@@ -19,27 +19,7 @@
             <li>Scatter Plot</li>
         </ul>
         <ul>
-            <li><a href="../PieChart/chartjs.html">Chart.js</a></li>
-            <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../PieChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../PieChart/toastui.html">Toast UI</a></li>
-
-            <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
-            <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../LineChart/toastui.html">Toast UI</a></li>
-
-            <li><a class="active" href="../BarChart/chartjs.html">Chart.js</a></li>
-            <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../BarChart/toastui.html">Toast UI</a></li>
-            <li><a href="../BarChart/chartist.html">Chartist.js</a></li>
-
-            <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
-            <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../ScatterPlot/billboard.html">Billboard.js</a></li>
-            <li><a href="../ScatterPlot/toastui.html">Toast UI</a></li>
-            <li><a href="../ScatterPlot/chartist.html">Chartist.js</a></li>
+            <script>createMenu('bar_Chart')</script>
         </ul>
     </div>
     <form id="fileForm">
@@ -84,28 +64,17 @@
                                 parsedData[5].Population_2020
                             ],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.8)',
-                                'rgba(54, 162, 235, 0.8)',
-                                'rgba(255, 206, 86, 0.8)',
-                                'rgba(75, 192, 192, 0.8)',
-                                'rgba(153, 102, 255, 0.8)',
-                                'rgba(255, 159, 64, 0.8)'
+                                'rgba(36, 158, 250, 1)',
+
                             ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
+                            barPercentage: 0.75
                         }]
                     },
                     options: {
                         scales: {
                             y: {
-                                min: 400000
+                                min: 400000,
+                                max: 650000
                             }
                         }
                     }
