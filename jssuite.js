@@ -26,13 +26,32 @@ timer = {
 }
 
 dataset = {}
+var colors = ["#ff0000", "#00ff00", "#0000ff"];
+var colorIndex = 0;
 
 function getHeight() {
-    return document.getElementById('chart').style.height;
+    return 600;
 }
 
 function getWidth() {
-    return document.getElementById('chart').style.width;
+    return 600;
+}
+
+function makeColorArray(size) {
+    var array = [];
+    for (let i = 0; i < size; i++) {
+        array.push(getColor());
+    }        
+    return array;
+}
+
+function getColor(){
+    var color = colors[colorIndex];
+    colorIndex++;
+    if (colorIndex >= colors.length) {
+        colorIndex = 0;
+    }
+    return color;
 }
 
 function createMenu(thisID) {

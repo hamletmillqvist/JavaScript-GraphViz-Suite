@@ -1,11 +1,3 @@
-#chart {
-    border: 1px solid black;
-    width: 50%;
-    height: 50%;
-    max-width: 50%;
-    max-height: 50%;
-}
-
 .heading {
     padding: 0;
     margin: 0;
@@ -57,4 +49,10 @@ li .active {
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+#chart {
+    border: 1px solid black;
+    width: 600px !important;
+    height: 600px !important;
 }
