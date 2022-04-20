@@ -19,10 +19,50 @@ timer = {
 	print: function () { 
         console.log("Elapsed tick: " + timer.elapsed(this.timeStamp_tick) + " ms");
         console.log("Elapsed total: " + timer.elapsed(this.timeStamp_stop) + " ms");
+    },
+    write: function() {
+        document.getElementById('output').innerHTML = `Elapsed tick: ${timer.elapsed(this.timeStamp_tick)}ms<br>Elapsed total: ${timer.elapsed(this.timeStamp_stop)}ms`;
     }
 }
 
 dataset = {}
+
+function getHeight() {
+    return document.getElementById('chart').style.height;
+}
+
+function getWidth() {
+    return document.getElementById('chart').style.width;
+}
+
+function createMenu(thisID) {
+    document.write(`\
+            <li><a id="pie_Chart"       href="../PieChart/chartjs.html">Chart.js</a></li>\
+            <li><a id="pie_Apex"        href="../PieChart/apexcharts.html">ApexCharts</a></li>\
+            <li><a id="pie_Billboard"   href="../PieChart/billboard.html">Billboard.js</a></li>\
+            <li><a id="pie_Toast"       href="../PieChart/toastui.html">Toast UI</a></li>\
+            <li><a id="pie_Chartist"    href="../PieChart/chartist.html">Chartist</a></li>\
+\
+            <li><a id="line_Chart"       href="../LineChart/chartjs.html">Chart.js</a></li>\
+            <li><a id="line_Apex"        href="../LineChart/apexcharts.html">ApexCharts</a></li>\
+            <li><a id="line_Billboard"   href="../LineChart/billboard.html">Billboard.js</a></li>\
+            <li><a id="line_Toast"       href="../LineChart/toastui.html">Toast UI</a></li>\
+            <li><a id="line_Chartist"    href="../LineChart/chartist.html">Chartist</a></li>\
+\
+            <li><a id="bar_Chart"       href="../BarChart/chartjs.html">Chart.js</a></li>\
+            <li><a id="bar_Apex"        href="../BarChart/apexcharts.html">ApexCharts</a></li>\
+            <li><a id="bar_Billboard"   href="../BarChart/billboard.html">Billboard.js</a></li>\
+            <li><a id="bar_Toast"       href="../BarChart/toastui.html">Toast UI</a></li>\
+            <li><a id="bar_Chartist"    href="../BarChart/chartist.html">Chartist</a></li>\
+\
+            <li><a id="scatter_Chart"       href="../ScatterPlot/chartjs.html">Chart.js</a></li>\
+            <li><a id="scatter_Apex"        href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>\
+            <li><a id="scatter_Billboard"   href="../ScatterPlot/billboard.html">Billboard.js</a></li>\
+            <li><a id="scatter_Toast"       href="../ScatterPlot/toastui.html">Toast UI</a></li>\
+            <li><a id="scatter_Chartist"    href="../ScatterPlot/chartist.html">Chartist</a></li>`);
+
+    document.getElementById(thisID).setAttribute('class', 'active')
+}
 
 makeChart = {
     library: undefined,

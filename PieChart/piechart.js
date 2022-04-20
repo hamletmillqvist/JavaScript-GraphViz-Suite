@@ -1,7 +1,7 @@
 seriesCount = 10;
 
 function getPieData() {
-    votes = [];
+    var votes = [];
 
     if (seriesCount == 0) {
         seriesCount = dataset.length;
@@ -33,6 +33,7 @@ makeChart.chartjs = () => {
     new Chart(div, config); // ASSEMBLING AND RENDERING
     timer.stop();
     timer.print();
+    timer.write();
 }
 
 makeChart.apexCharts = () => {
@@ -51,6 +52,7 @@ makeChart.apexCharts = () => {
     chart.render(); // RENDERING
 	timer.stop();
 	timer.print();
+    timer.write();
 }
 
 makeChart.billboard = () => {
@@ -77,6 +79,7 @@ makeChart.billboard = () => {
     bb.generate(config);
     timer.stop();
     timer.print();
+    timer.write();
 }
 
 makeChart.toastUI = () => {
@@ -104,4 +107,17 @@ makeChart.toastUI = () => {
     });
     timer.stop();
     timer.print();
+    timer.write();
+}
+
+makeChart.chartist = () => {
+    var data = {
+        series: getPieData(dataset),
+    }
+
+    timer.start();
+    new Chartist.Pie('#chart', data);
+    timer.stop();
+    timer.print();
+    timer.write();
 }
