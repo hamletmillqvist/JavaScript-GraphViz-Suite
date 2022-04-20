@@ -62,7 +62,10 @@
                 var options = {
                     seriesBarDistance: 15,
                     high: 650000,
-                    low: 400000
+                    low: 400000,
+                    axisY: {
+                        scaleMinSpace: 50
+                    }
                 };
 
                 var responsiveOptions = [
@@ -72,7 +75,7 @@
                             labelInterpolationFnc: function (value) {
                                 return value;
                             }
-                        }
+                        },
                     }],
                     ['screen and (max-width: 640px)', {
                         seriesBarDistance: 5,
@@ -80,7 +83,8 @@
                             labelInterpolationFnc: function (value) {
                                 return value[0];
                             }
-                        }
+                        },
+
                     }]
                 ];
 

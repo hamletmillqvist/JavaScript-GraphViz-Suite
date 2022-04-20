@@ -62,13 +62,21 @@
                         }
                     ],
                 };
+                const theme = {
+                    series: {
+                        colors: [
+                            '#249efa'
+                        ],
+                    },
+                };
                 const options = {
                     chart: { width: "100%", height: "100%" },
                     yAxis: {
                         scale: {
                             min: 400000
                         }
-                    }
+                    },
+                    theme
                 };
                 timer.start();
                 chart.columnChart({ el, data, options });
