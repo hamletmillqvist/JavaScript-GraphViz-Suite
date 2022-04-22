@@ -52,22 +52,18 @@ li .active {
 }
 
 .red {
-    stroke: white;
     fill: #ff0000;
 }
 
 .green {
-    stroke: white;
     fill: #00ff00;
 }
 
 .blue {
-    stroke: white;
     fill: #0000ff;
 }
 
 .gray {
-    stroke: white;
     fill: gray;
 }
 
@@ -76,3 +72,8 @@ li .active {
     width: 600px !important;
     height: 600px !important;
 }
+
+/* FORCED REMOVAL OF OUTLINE IN BILLBOARD.JS (FOR TESTING PURPOSES) */
+/*.bb-chart-arc path {
+    stroke: transparent;
+}*/

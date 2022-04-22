@@ -1,4 +1,4 @@
-seriesCount = 10;
+seriesCount = 10000;
 
 function getPieData() {
     var data = [];
@@ -24,6 +24,7 @@ makeChart.chartjs = () => {
                     data: getPieData(dataset),
                     hoverOffset: 4,
                     backgroundColor: makeColorArray(seriesCount),
+                    borderColor: "transparent",
                 }
             ]
         },
@@ -53,6 +54,9 @@ makeChart.apexCharts = () => {
         },
         series: getPieData(dataset),
         colors: makeColorArray(seriesCount),
+        stroke:{
+         colors:['transparent']
+        },
         dataLabels: {
             enabled: false,
         },
@@ -185,6 +189,8 @@ makeChart.chartist = () => {
         showLabel: false,
     };
 
+    timer.stop();
+    timer.print();
     timer.start();
     new Chartist.Pie('#chart', data, options);
     timer.stop();
