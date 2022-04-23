@@ -1,36 +1,42 @@
-seriesCount = 10;
+seriesCount = 100;
 
 function getPieData() {
-    var votes = [];
+    var data = [];
 
     if (seriesCount == 0) {
         seriesCount = dataset.length;
     }
 
     for (let i = 0; i < seriesCount; i++) {
-        votes.push(dataset[i]['Units Sold'])
+        data.push(dataset[i]['Units Sold'])
     }
 
-    return votes;
+    return data;
 }
 
-makeChart.chartjs = () => {    
-    const div = document.getElementById('chart');
+makeChart.chartjs = () => {
+    const canvas = document.getElementById('chart');
     const config = {
-            type: 'pie',
-            data: {
-            //labels: [],
-            datasets: [
-                {
-                    data: getPieData(dataset),
-                    hoverOffset: 4,
-                }
-            ],
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: getPieData(dataset),
+                hoverOffset: 4,
+                backgroundColor: makeColorArray(seriesCount),
+                borderColor: "transparent",
+            }]
         },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+        },
+    };
+    const options = {
+        animations: false
     };
 
     timer.start();
-    new Chart(div, config); // ASSEMBLING AND RENDERING
+    new Chart(canvas, config, options); // ASSEMBLING AND RENDERING
     timer.stop();
     timer.print();
     timer.write();
@@ -40,39 +46,60 @@ makeChart.apexCharts = () => {
     const div = document.getElementById('chart');
     const options = {
         chart: {
-            type: 'pie'
+            type: 'pie',
+            width: getWidth(),
+            height: getHeight(),
         },
-        //labels: [],
         series: getPieData(dataset),
+        colors: makeColorArray(seriesCount),
+        stroke: {
+            colors: ['transparent']
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        legend: {
+            show: false
+        },
     }
 
-	timer.start();
+    timer.start();
     const chart = new ApexCharts(div, options); // ASSEMBLING
     timer.tick();
     chart.render(); // RENDERING
-	timer.stop();
-	timer.print();
+    timer.stop();
+    timer.print();
     timer.write();
 }
 
 makeChart.billboard = () => {
     const data = getPieData(dataset);
-    series = [];
+    let series = [];
+    let colors = {};
+
     for (let i = 0; i < data.length; i++) {
-        serie = [String(i), data[i]];
+        let indexString = String(i); // instead of 2 conversions
+        let serie = [indexString, data[i]];
         series.push(serie);
+
+        colors[indexString] = getColor();
     }
 
     const config = {
         data: {
             columns: series,
             type: "pie",
-            //colors: {
-            //    "1": "rgba(0,143,251)",
-            //    "2": "rgba(0,227,150)",
-            //},
+            colors: colors,
         },
-        bindto: '#chart'
+        bindto: '#chart',
+        legend: {
+            show: false,
+        },
+        pie: {
+            label: {
+                show: false,
+            }
+        }
     };
 
     timer.start();
@@ -87,13 +114,13 @@ makeChart.toastUI = () => {
     const data = getPieData(dataset);
     series = [];
     for (let i = 0; i < data.length; i++) {
-        serie = { 
+        serie = {
             name: String(i),
             data: data[i],
         };
         series.push(serie);
     }
-	
+
     timer.start();
     toastui.Chart.pieChart({
         el: div,
@@ -102,7 +129,21 @@ makeChart.toastUI = () => {
             series: series,
         },
         options: {
-            
+            chart: {
+                width: getWidth(),
+                height: getHeight(),
+            },
+            series: {
+
+            },
+            legend: {
+                visible: false,
+            },
+            theme: {
+                series: {
+                    colors: makeColorArray(seriesCount),
+                }
+            }
         },
     });
     timer.stop();
@@ -111,13 +152,46 @@ makeChart.toastUI = () => {
 }
 
 makeChart.chartist = () => {
-    var data = {
-        series: getPieData(dataset),
+    const pieData = getPieData();
+    let series = [];
+
+    function colorName(hex) {
+        switch (hex.toLowerCase()) {
+            case "#ff0000":
+                return "red"
+
+            case "#00ff00":
+                return "green";
+
+            case "#0000ff":
+                return "blue";
+
+            default:
+                return "gray";
+        }
     }
 
-    timer.start();
-    new Chartist.Pie('#chart', data);
+    pieData.forEach(element => {
+        let serie = {};
+        serie['value'] = element;
+        serie['className'] = colorName(getColor());
+        series.push(serie);
+    });
+
+    var data = {
+        series: series,
+    };
+    const options = {
+        width: getWidth(),
+        height: getHeight(),
+        showLabel: false,
+    };
+
     timer.stop();
     timer.print();
-    timer.write();
+    timer.start();
+    new Chartist.Pie('#chart', data, options);
+    //timer.stop();
+    //timer.print();
+    //timer.write();
 }

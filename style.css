@@ -1,11 +1,3 @@
-#chart {
-    border: 1px solid black;
-    width: 50%;
-    height: 50%;
-    max-width: 50%;
-    max-height: 50%;
-}
-
 .heading {
     padding: 0;
     margin: 0;
@@ -58,3 +50,30 @@ li .active {
     height: 100%;
     width: 100%;
 }
+
+.red {
+    fill: #ff0000;
+}
+
+.green {
+    fill: #00ff00;
+}
+
+.blue {
+    fill: #0000ff;
+}
+
+.gray {
+    fill: gray;
+}
+
+#chart {
+    border: 1px solid black;
+    width: 600px !important;
+    height: 600px !important;
+}
+
+/* FORCED REMOVAL OF OUTLINE IN BILLBOARD.JS (FOR TESTING PURPOSES) */
+/*.bb-chart-arc path {
+    stroke: transparent;
+}*/
