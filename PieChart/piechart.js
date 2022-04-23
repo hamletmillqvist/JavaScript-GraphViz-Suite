@@ -131,7 +131,7 @@ makeChart.toastUI = () => {
             series: series,
         },
         options: {
-            char: {
+            chart: {
                 width: getWidth(),
                 height: getHeight(),
             },
