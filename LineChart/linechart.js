@@ -31,6 +31,7 @@ makeChart.chartjs = () => {
     const div = document.getElementById('chart');
     const data = getLineData();
     const labels = generateLabels();
+    const color = getColor();
 
     const config = {
         type: 'line',
@@ -38,10 +39,23 @@ makeChart.chartjs = () => {
             labels: labels,
             datasets: [
                 {
-                    label: 'Total Profit / Row',
+                    label: 'Total Profit',
                     data: data,
+                    backgroundColor: color,
+                    borderColor: color,
+                    
                 },
             ]
+        },
+        options: {
+            elements: {
+                point: {
+                    radius: 0 // hide data points as the other does not use it per default
+                }
+            },
+            responsive: false,
+            maintainAspectRatio: true,
+            aspectRatio: 1,  
         },
     };
 
@@ -55,29 +69,32 @@ makeChart.chartjs = () => {
 makeChart.apexCharts = () => {
     const data = getLineData();
     const labels = generateLabels();
+    const color = getColor();
 
     var options = {
-          series: [{
+        series: [{
             name: "Desktops",
             data: data,
         }],
-          chart: {
-          height: getHeight(),
-          width: getWidth(), // not tested
-          type: 'line',
+            chart: {
+            height: getHeight(),
+            width: getWidth(),
+            type: 'line',
         },
         dataLabels: {
-          enabled: false
+            enabled: false
         },
+        colors: [color],
         stroke: {
-          curve: 'straight'
+            colors: [color],
+            curve: 'straight',
         },
         title: {
-          text: 'Total Profit / Row',
-          align: 'left'
+            text: 'Total Profit',
+            align: 'center'
         },
         xaxis: {
-          categories: labels,
+            categories: labels,
         }
     };
 
@@ -91,12 +108,9 @@ makeChart.apexCharts = () => {
 };
 
 makeChart.billboard = () => {
-    const div = document.getElementById('chart');
     const data = getLineData();
     const labels = generateLabels();
-
-    timer.start();
-    bb.generate({
+    const config = {
         data: {
             x: "Index",
             columns: [
@@ -104,13 +118,29 @@ makeChart.billboard = () => {
                 ["Profit"].concat(data),
             ],
             type: "line",
-            //colors: {
-            //    Men: "rgba(0,143,251)",
-            //    Women: "rgba(0,227,150)",
-            //},
+            colors: {
+                Profit: getColor(),
+            },
         },
         bindto: '#chart',
-    });
+        axis: {
+            x: {
+                tick: {
+                    culling: false
+                }
+            }
+        },
+        legend: {
+            show:false,
+        },
+        title: {
+            text: 'Total Profit',
+            position: 'center',
+        }
+    };
+
+    timer.start();
+    bb.generate(config);
     timer.stop();
     timer.print();
     timer.write();
@@ -129,12 +159,18 @@ makeChart.toastUI = () => {
     };
 
     const options = {
-        chart: { title: 'Total Profit / Row', width: getWidth(), height: getHeight() },
-        xAxis: {
-            title: 'Index',
+        chart: { 
+            title: 'Total Profit',
+            width: getWidth(),
+            height: getHeight()
         },
-        yAxis: {
-            title: 'Profit',
+        legend: {
+            visible: false,
+        },
+        theme: {
+            series: {
+                colors: [getColor()],
+            },
         },
     };
 
@@ -154,7 +190,7 @@ makeChart.chartist = () => {
     var options = {
         width: getWidth(),
         height: getHeight(),
-        showPoint: true,
+        showPoint: false,
         lineSmooth: false,
     };
 
