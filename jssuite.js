@@ -14,12 +14,12 @@ timer = {
     },
 
 	print: function () { 
-        console.log("Elapsed tick: " +  this.getTick() + " ms");
-        console.log("Elapsed total: " + this.getStop() + " ms");
+        console.log(`Elapsed tick: ${this.getTick()} ms`.replace('.', ','));
+        console.log(`Elapsed total: ${this.getStop()} ms`.replace('.', ','));
     },
 
     write: function() {
-        document.getElementById('output').innerHTML = `Elapsed tick: ${this.getTick()} ms<br>Elapsed total: ${this.getStop()} ms`;
+        document.getElementById('output').innerHTML = `Elapsed tick: ${this.getTick()} ms<br>Elapsed total: ${this.getStop()} ms`.replace('.', ',');
     }
 }
 
