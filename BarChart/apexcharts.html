@@ -40,22 +40,24 @@
             reader.onload = function (e) {
                 const text = e.target.result;
                 parsedData = parseCSV(text);
-                console.log(parsedData[0])
-                console.log(parsedData[0]["Region"]);
                 const data = getBarData(parsedData);
-                console.log(data);
+                console.log("data:", data);
                 const labels = generateLabels();
-                console.log(parsedData);
                 const color = getColor();
                 var options = {
                     series: [{
-                        name: "Desktops",
-                        data: data,
+                        data: data
                     }],
                     chart: {
-                        height: "100%",
-                        width: "100%",
-                        type: 'Bar',
+                        type: 'bar',
+                        height: '50%',
+                        width: '100%'
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 0,
+                            horizontal: false,
+                        }
                     },
                     dataLabels: {
                         enabled: false
@@ -65,12 +67,8 @@
                         colors: [color],
                         curve: 'straight',
                     },
-                    title: {
-                        text: 'Total Profit',
-                        align: 'center'
-                    },
                     xaxis: {
-                        categories: labels,
+                        categories: labels
                     }
                 };
 
@@ -84,7 +82,7 @@
             };
         });
 
-        itemCount = 100;
+        itemCount = 1000;
         function getBarData(dataset) {
             var data = [];
 
