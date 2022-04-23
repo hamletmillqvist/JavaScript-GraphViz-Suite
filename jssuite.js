@@ -1,10 +1,10 @@
 timer = {
-	timeStamp_start: 0,
-	timeStamp_stop: 0,
+    timeStamp_start: 0,
+    timeStamp_stop: 0,
     timeStamp_tick: 0,
 	
 	start: function ()  { this.timeStamp_start = performance.now(); },
-    tick: function ()   { this.timeStamp_tick = performance.now(); },
+  tick: function ()   { this.timeStamp_tick = performance.now(); },
 	stop: function ()   { this.timeStamp_stop = performance.now(); },
 
     getStop: function ()   { return this.timeStamp_stop - this.timeStamp_start; },
@@ -84,18 +84,18 @@ function createMenu(thisID) {
 makeChart = {
     library: undefined,
 
-    chartjs: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    apexCharts: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    billboard: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    toastUI: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    chartist: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    chartjs: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    apexCharts: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    billboard: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    toastUI: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    chartist: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
 }
 
 function onFileSelected() {
     timer.start();
     const files = document.getElementById('fileselector').files; // FileList object
     const mainFile = files.item(0);
-    
+
     if (files.length === 1) {
         const reader = new FileReader();
         reader.addEventListener("load", () => {

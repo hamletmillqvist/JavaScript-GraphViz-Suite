@@ -40,51 +40,78 @@
             reader.onload = function (e) {
                 const text = e.target.result;
                 parsedData = parseCSV(text);
-                console.log(parsedData);
-                console.log(parsedData[2].Population_1968);
-
+                const data = getBarData(parsedData);
+                console.log("data:", data);
+                const labels = generateLabels();
+                const color = getColor();
                 var options = {
+                    series: [{
+                        data: data
+                    }],
                     chart: {
                         type: 'bar',
-                        width: '100%',
-                        height: '50%'   // For some reason, 50% is the height of the container while 100% will result in double the height of the container
-                    },
-                    series: [{
-                        name: 'sales',
-                        data: [
-                            parsedData[5].Population_1970,
-                            parsedData[5].Population_1980,
-                            parsedData[5].Population_1990,
-                            parsedData[5].Population_2000,
-                            parsedData[5].Population_2010,
-                            parsedData[5].Population_2020
-                        ]
-                    }],
-                    xaxis: {
-                        categories: [1970, 1980, 1990, 2000, 2010, 2020],
-
-                    },
-                    yaxis: {
-                        min: 400000,
-                        max: 650000,
-                        tickAmount: 5
+                        height: '50%',
+                        width: '100%'
                     },
                     plotOptions: {
                         bar: {
-                            columnWidth: '60%'
+                            borderRadius: 0,
+                            horizontal: false,
                         }
                     },
-
-                }
+                    dataLabels: {
+                        enabled: false
+                    },
+                    colors: [color],
+                    stroke: {
+                        colors: [color],
+                        curve: 'straight',
+                    },
+                    xaxis: {
+                        categories: labels
+                    }
+                };
 
                 var canvas = document.querySelector('#chart');
-                var chart = new ApexCharts(canvas, options);
-
                 timer.start();
+                var chart = new ApexCharts(canvas, options);
+                timer.tick();
                 chart.render();
                 timer.stop();
                 timer.print();
             };
         });
+
+        itemCount = 1000;
+        function getBarData(dataset) {
+            var data = [];
+
+            if (itemCount == 0) {
+                itemCount = dataset.length;
+            }
+
+            for (let i = 0; i < itemCount; i++) {
+                data.push(dataset[i]["Total Profit"])
+            }
+
+            return data;
+        }
+        function generateLabels() {
+            var labels = [];
+            for (let i = 0; i < itemCount; i++) {
+                labels.push(String(i));
+            }
+            return labels;
+        }
+        var colors = ["#ff0000", "#00ff00", "#0000ff"];
+        var colorIndex = 0;
+        function getColor() {
+            var color = colors[colorIndex];
+            colorIndex++;
+            if (colorIndex >= colors.length) {
+                colorIndex = 0;
+            }
+            return color;
+        }
     </script>
 </body>
