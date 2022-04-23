@@ -73,9 +73,9 @@
                 };
 
                 var canvas = document.querySelector('#chart');
-                var chart = new ApexCharts(canvas, options);
-
                 timer.start();
+                var chart = new ApexCharts(canvas, options);
+                timer.tick();
                 chart.render();
                 timer.stop();
                 timer.print();
