@@ -2,37 +2,54 @@ timer = {
     timeStamp_start: 0,
     timeStamp_stop: 0,
     timeStamp_tick: 0,
-    elapsed: function (timeStamp) {
-        let span = timeStamp - this.timeStamp_start;
-        if (span < 0) {
-            span = 0;
-        }
-        return span;
+	
+	start: function ()  { this.timeStamp_start = performance.now(); },
+  tick: function ()   { this.timeStamp_tick = performance.now(); },
+	stop: function ()   { this.timeStamp_stop = performance.now(); },
+
+    getStop: function ()   { return this.timeStamp_stop - this.timeStamp_start; },
+    getTick: function ()   { 
+        const span = this.timeStamp_tick - this.timeStamp_start;
+        return span > 0 ? span : 0;
     },
 
-    start: function () {
-        this.ticks = [];
-        this.timeStamp_start = performance.now();
+	print: function () { 
+        console.log(`Elapsed tick: ${this.getTick()} ms`.replace('.', ','));
+        console.log(`Elapsed total: ${this.getStop()} ms`.replace('.', ','));
     },
-    tick: function () { this.ticks = performance.now(); },
-    stop: function () { this.timeStamp_stop = performance.now(); },
-    print: function () {
-        console.log("Elapsed tick: " + timer.elapsed(this.timeStamp_tick) + " ms");
-        console.log("Elapsed total: " + timer.elapsed(this.timeStamp_stop) + " ms");
-    },
-    write: function () {
-        document.getElementById('output').innerHTML = `Elapsed tick: ${timer.elapsed(this.timeStamp_tick)}ms<br>Elapsed total: ${timer.elapsed(this.timeStamp_stop)}ms`;
+
+    write: function() {
+        document.getElementById('output').innerHTML = `Elapsed tick: ${this.getTick()} ms<br>Elapsed total: ${this.getStop()} ms`.replace('.', ',');
     }
 }
 
 dataset = {}
+var colors = ["#ff0000", "#00ff00", "#0000ff"];
+var colorIndex = 0;
 
 function getHeight() {
-    return document.getElementById('chart').style.height;
+    return 600;
 }
 
 function getWidth() {
-    return document.getElementById('chart').style.width;
+    return 600;
+}
+
+function makeColorArray(size) {
+    var array = [];
+    for (let i = 0; i < size; i++) {
+        array.push(getColor());
+    }        
+    return array;
+}
+
+function getColor(){
+    var color = colors[colorIndex];
+    colorIndex++;
+    if (colorIndex >= colors.length) {
+        colorIndex = 0;
+    }
+    return color;
 }
 
 function createMenu(thisID) {
@@ -75,6 +92,7 @@ makeChart = {
 }
 
 function onFileSelected() {
+    timer.start();
     const files = document.getElementById('fileselector').files; // FileList object
     const mainFile = files.item(0);
 
