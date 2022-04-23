@@ -18,27 +18,7 @@
             <li>Scatter Plot</li>
         </ul>
         <ul>
-            <li><a href="../PieChart/chartjs.html">Chart.js</a></li>
-            <li><a href="../PieChart/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../PieChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../PieChart/toastui.html">Toast UI</a></li>
-
-            <li><a href="../LineChart/chartjs.html">Chart.js</a></li>
-            <li><a href="../LineChart/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../LineChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../LineChart/toastui.html">Toast UI</a></li>
-
-            <li><a href="../BarChart/chartjs.html">Chart.js</a></li>
-            <li><a href="../BarChart/apexcharts.html">ApexCharts</a></li>
-            <li><a href="../BarChart/billboard.html">Billboard.js</a></li>
-            <li><a href="../BarChart/toastui.html">Toast UI</a></li>
-            <li><a href="../BarChart/chartist.html">Chartist.js</a></li>
-
-            <li><a href="../ScatterPlot/chartjs.html">Chart.js</a></li>
-            <li><a href="../ScatterPlot/apexcharts.html">ApexCharts</a></li>
-            <li><a class="active" href="../ScatterPlot/billboard.html">Billboard.js</a></li>
-            <li><a href="../ScatterPlot/toastui.html">Toast UI</a></li>
-            <li><a href="../ScatterPlot/chartist.html">Chartist.js</a></li>
+            <script>createMenu('scatter_Billboard')</script>
         </ul>
     </div>
     <form id="fileForm">
@@ -81,6 +61,9 @@
                             ]
                         ],
                     },
+                    color: function (color, d) {
+                        return "#249efa";
+                    },
                     axis: {
                         x: {
                             type: "category",
@@ -95,7 +78,11 @@
                         },
                         y: {
                             max: 650000,
-                            min: 400000
+                            min: 400000,
+                            padding: 0,
+                            tick: {
+                                count: 6
+                            }
                         }
                     },
                 });
