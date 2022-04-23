@@ -14,19 +14,17 @@ function getPieData() {
     return data;
 }
 
-makeChart.chartjs = () => {    
+makeChart.chartjs = () => {
     const canvas = document.getElementById('chart');
     const config = {
         type: 'pie',
         data: {
-            datasets: [
-                {
-                    data: getPieData(dataset),
-                    hoverOffset: 4,
-                    backgroundColor: makeColorArray(seriesCount),
-                    borderColor: "transparent",
-                }
-            ]
+            datasets: [{
+                data: getPieData(dataset),
+                hoverOffset: 4,
+                backgroundColor: makeColorArray(seriesCount),
+                borderColor: "transparent",
+            }]
         },
         options: {
             responsive: false,
@@ -54,8 +52,8 @@ makeChart.apexCharts = () => {
         },
         series: getPieData(dataset),
         colors: makeColorArray(seriesCount),
-        stroke:{
-         colors:['transparent']
+        stroke: {
+            colors: ['transparent']
         },
         dataLabels: {
             enabled: false,
@@ -65,12 +63,12 @@ makeChart.apexCharts = () => {
         },
     }
 
-	timer.start();
+    timer.start();
     const chart = new ApexCharts(div, options); // ASSEMBLING
     timer.tick();
     chart.render(); // RENDERING
-	timer.stop();
-	timer.print();
+    timer.stop();
+    timer.print();
     timer.write();
 }
 
@@ -116,13 +114,13 @@ makeChart.toastUI = () => {
     const data = getPieData(dataset);
     series = [];
     for (let i = 0; i < data.length; i++) {
-        serie = { 
+        serie = {
             name: String(i),
             data: data[i],
         };
         series.push(serie);
     }
-	
+
     timer.start();
     toastui.Chart.pieChart({
         el: div,
@@ -167,7 +165,7 @@ makeChart.chartist = () => {
 
             case "#0000ff":
                 return "blue";
-        
+
             default:
                 return "gray";
         }

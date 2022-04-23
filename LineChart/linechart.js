@@ -37,15 +37,13 @@ makeChart.chartjs = () => {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [
-                {
-                    label: 'Total Profit',
-                    data: data,
-                    backgroundColor: color,
-                    borderColor: color,
-                    
-                },
-            ]
+            datasets: [{
+                label: 'Total Profit',
+                data: data,
+                backgroundColor: color,
+                borderColor: color,
+
+            }, ]
         },
         options: {
             elements: {
@@ -55,7 +53,7 @@ makeChart.chartjs = () => {
             },
             responsive: false,
             maintainAspectRatio: true,
-            aspectRatio: 1,  
+            aspectRatio: 1,
         },
     };
 
@@ -76,7 +74,7 @@ makeChart.apexCharts = () => {
             name: "Desktops",
             data: data,
         }],
-            chart: {
+        chart: {
             height: getHeight(),
             width: getWidth(),
             type: 'line',
@@ -131,11 +129,14 @@ makeChart.billboard = () => {
             }
         },
         legend: {
-            show:false,
+            show: false,
         },
         title: {
             text: 'Total Profit',
             position: 'center',
+        },
+        point: {
+            show: false,
         }
     };
 
@@ -150,16 +151,14 @@ makeChart.toastUI = () => {
     const el = document.getElementById('chart'); // MUST BE NAMED 'el'
     const data = {
         categories: generateLabels(),
-        series: [
-            {
-                name: 'Profit',
-                data: getLineData(),
-            },
-        ],
+        series: [{
+            name: 'Profit',
+            data: getLineData(),
+        }, ],
     };
 
     const options = {
-        chart: { 
+        chart: {
             title: 'Total Profit',
             width: getWidth(),
             height: getHeight()
@@ -175,7 +174,11 @@ makeChart.toastUI = () => {
     };
 
     timer.start();
-    const chart = toastui.Chart.lineChart({ el, data, options });
+    const chart = toastui.Chart.lineChart({
+        el,
+        data,
+        options
+    });
     timer.stop();
     timer.print();
     timer.write();
@@ -184,7 +187,7 @@ makeChart.toastUI = () => {
 makeChart.chartist = () => {
     var data = {
         labels: generateLabels(),
-        series: [ getLineData() ],
+        series: [getLineData()],
     }
 
     var options = {
