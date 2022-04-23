@@ -40,42 +40,39 @@
             reader.onload = function (e) {
                 const text = e.target.result;
                 parsedData = parseCSV(text);
+                console.log(parsedData[0])
+                console.log(parsedData[0]["Region"]);
+                const data = getBarData(parsedData);
+                console.log(data);
+                const labels = generateLabels();
                 console.log(parsedData);
-                console.log(parsedData[2].Population_1968);
-
+                const color = getColor();
                 var options = {
-                    chart: {
-                        type: 'bar',
-                        width: '100%',
-                        height: '50%'   // For some reason, 50% is the height of the container while 100% will result in double the height of the container
-                    },
                     series: [{
-                        name: 'sales',
-                        data: [
-                            parsedData[5].Population_1970,
-                            parsedData[5].Population_1980,
-                            parsedData[5].Population_1990,
-                            parsedData[5].Population_2000,
-                            parsedData[5].Population_2010,
-                            parsedData[5].Population_2020
-                        ]
+                        name: "Desktops",
+                        data: data,
                     }],
+                    chart: {
+                        height: "100%",
+                        width: "100%",
+                        type: 'Bar',
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    colors: [color],
+                    stroke: {
+                        colors: [color],
+                        curve: 'straight',
+                    },
+                    title: {
+                        text: 'Total Profit',
+                        align: 'center'
+                    },
                     xaxis: {
-                        categories: [1970, 1980, 1990, 2000, 2010, 2020],
-
-                    },
-                    yaxis: {
-                        min: 400000,
-                        max: 650000,
-                        tickAmount: 5
-                    },
-                    plotOptions: {
-                        bar: {
-                            columnWidth: '60%'
-                        }
-                    },
-
-                }
+                        categories: labels,
+                    }
+                };
 
                 var canvas = document.querySelector('#chart');
                 var chart = new ApexCharts(canvas, options);
@@ -86,5 +83,37 @@
                 timer.print();
             };
         });
+
+        itemCount = 100;
+        function getBarData(dataset) {
+            var data = [];
+
+            if (itemCount == 0) {
+                itemCount = dataset.length;
+            }
+
+            for (let i = 0; i < itemCount; i++) {
+                data.push(dataset[i]["Total Profit"])
+            }
+
+            return data;
+        }
+        function generateLabels() {
+            var labels = [];
+            for (let i = 0; i < itemCount; i++) {
+                labels.push(String(i));
+            }
+            return labels;
+        }
+        var colors = ["#ff0000", "#00ff00", "#0000ff"];
+        var colorIndex = 0;
+        function getColor() {
+            var color = colors[colorIndex];
+            colorIndex++;
+            if (colorIndex >= colors.length) {
+                colorIndex = 0;
+            }
+            return color;
+        }
     </script>
 </body>

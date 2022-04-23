@@ -1,26 +1,26 @@
 timer = {
-	timeStamp_start: 0,
-	timeStamp_stop: 0,
+    timeStamp_start: 0,
+    timeStamp_stop: 0,
     timeStamp_tick: 0,
-	elapsed: function (timeStamp) { 
+    elapsed: function (timeStamp) {
         let span = timeStamp - this.timeStamp_start;
         if (span < 0) {
             span = 0;
         }
         return span;
     },
-	
-	start: function () {
+
+    start: function () {
         this.ticks = [];
         this.timeStamp_start = performance.now();
     },
     tick: function () { this.ticks = performance.now(); },
-	stop: function () { this.timeStamp_stop = performance.now(); },
-	print: function () { 
+    stop: function () { this.timeStamp_stop = performance.now(); },
+    print: function () {
         console.log("Elapsed tick: " + timer.elapsed(this.timeStamp_tick) + " ms");
         console.log("Elapsed total: " + timer.elapsed(this.timeStamp_stop) + " ms");
     },
-    write: function() {
+    write: function () {
         document.getElementById('output').innerHTML = `Elapsed tick: ${timer.elapsed(this.timeStamp_tick)}ms<br>Elapsed total: ${timer.elapsed(this.timeStamp_stop)}ms`;
     }
 }
@@ -67,17 +67,17 @@ function createMenu(thisID) {
 makeChart = {
     library: undefined,
 
-    chartjs: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    apexCharts: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    billboard: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    toastUI: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
-    chartist: function() { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    chartjs: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    apexCharts: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    billboard: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    toastUI: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
+    chartist: function () { console.error("NO OVERRIDE CALLED! MISSING FILE!"); },
 }
 
 function onFileSelected() {
     const files = document.getElementById('fileselector').files; // FileList object
     const mainFile = files.item(0);
-    
+
     if (files.length === 1) {
         const reader = new FileReader();
         reader.addEventListener("load", () => {
