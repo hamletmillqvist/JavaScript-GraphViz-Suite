@@ -1,4 +1,4 @@
-itemCount = 10;
+itemCount = 10000;
 
 function extractYear(date) {
     const arr = date.split('/');
@@ -199,7 +199,7 @@ makeChart.chartist = () => {
 
     timer.start();
     new Chartist.Line('#chart', data, options);
-    timer.stop();
-    timer.print();
-    timer.write();
+    //timer.stop();
+    //timer.print();
+    //timer.write();
 }

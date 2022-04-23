@@ -1,4 +1,4 @@
-seriesCount = 10000;
+seriesCount = 100;
 
 function getPieData() {
     var data = [];
@@ -191,7 +191,7 @@ makeChart.chartist = () => {
     timer.print();
     timer.start();
     new Chartist.Pie('#chart', data, options);
-    timer.stop();
-    timer.print();
-    timer.write();
+    //timer.stop();
+    //timer.print();
+    //timer.write();
 }
