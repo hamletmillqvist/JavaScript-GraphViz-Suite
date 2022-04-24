@@ -1,7 +1,7 @@
 <head>
     <title>JavaScript Suite</title>
-    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../libraries/chartist/dist/chartist.min.css">
+    <link rel="stylesheet" href="../style.css">
     <script src="../libraries/chartist/dist/chartist.min.js"></script>
     <script src="../jssuite.js"></script>
 </head>
@@ -40,58 +40,51 @@
             reader.onload = function (e) {
                 const text = e.target.result;
                 parsedData = parseCSV(text);
-                console.log(parsedData);
-                console.log(parsedData[2].Population_1968);
-
-
-                timer.start();
                 var data = {
-                    labels: ['1970', '1980', '1990', '2000', '2010', '2020'],
-                    series: [
-                        [
-                            parsedData[5].Population_1970,
-                            parsedData[5].Population_1980,
-                            parsedData[5].Population_1990,
-                            parsedData[5].Population_2000,
-                            parsedData[5].Population_2010,
-                            parsedData[5].Population_2020
-                        ]
-                    ]
-                };
+                    labels: generateLabels(),
+                    series: [getBarData(parsedData)],
+                }
 
                 var options = {
-                    seriesBarDistance: 15,
                     showLine: false,
-                    high: 650000,
-                    low: 400000,
-                    axisY: {
-                        scaleMinSpace: 50
-                    }
+                    width: getWidth(),
+                    height: getHeight(),
                 };
 
-                var responsiveOptions = [
-                    ['screen and (min-width: 641px) and (max-width: 1024px)', {
-                        seriesBarDistance: 10,
-                        axisX: {
-                            labelInterpolationFnc: function (value) {
-                                return value;
-                            }
-                        }
-                    }],
-                    ['screen and (max-width: 640px)', {
-                        seriesBarDistance: 5,
-                        axisX: {
-                            labelInterpolationFnc: function (value) {
-                                return value[0];
-                            }
-                        }
-                    }]
-                ];
-
-                new Chartist.Line('#chart', data, options, responsiveOptions);
-                timer.stop();
-                timer.print();
+                timer.start();
+                new Chartist.Line('#chart', data, options);
             };
         });
+        itemCount = 1000;
+        function getBarData(dataset) {
+            var data = [];
+
+            if (itemCount == 0) {
+                itemCount = dataset.length;
+            }
+
+            for (let i = 0; i < itemCount; i++) {
+                data.push(dataset[i]["Total Profit"])
+            }
+
+            return data;
+        }
+        function generateLabels() {
+            var labels = [];
+            for (let i = 0; i < itemCount; i++) {
+                labels.push(String(i));
+            }
+            return labels;
+        }
+        var colors = ["#ff0000", "#00ff00", "#0000ff"];
+        var colorIndex = 0;
+        function getColor() {
+            var color = colors[colorIndex];
+            colorIndex++;
+            if (colorIndex >= colors.length) {
+                colorIndex = 0;
+            }
+            return color;
+        }
     </script>
 </body>

@@ -40,48 +40,72 @@
             reader.onload = function (e) {
                 const text = e.target.result;
                 parsedData = parseCSV(text);
-                console.log(parsedData);
-                const chart = toastui.Chart;
-
-                const el = document.getElementById('chart');
+                const el = document.getElementById('chart'); // MUST BE NAMED 'el'
+                console.log(getBarData(parsedData));
                 const data = {
-                    categories: ['1970', '1980', '1990', '2000', '2010', '2020'],
-                    series: [
-                        {
-                            name: 'Year',
-                            data: [
-                                { x: 1970, y: parsedData[5].Population_1970 },
-                                { x: 1980, y: parsedData[5].Population_1980 },
-                                { x: 1990, y: parsedData[5].Population_1990 },
-                                { x: 2000, y: parsedData[5].Population_2000 },
-                                { x: 2010, y: parsedData[5].Population_2010 },
-                                { x: 2020, y: parsedData[5].Population_2020 },
-                            ],
-                        }
-                    ],
+                    categories: generateLabels(),
+                    series: [{
+                        name: 'Profit',
+                        data: getBarData(parsedData),
+                    },],
                 };
-                const theme = {
-                    series: {
-                        colors: [
-                            '#249efa'
-                        ],
-                    },
-                };
+
                 const options = {
-                    chart: { width: "100%", height: "100%" },
-                    yAxis: {
-                        scale: {
-                            min: 400000
-                        }
+                    chart: {
+                        width: getWidth(),
+                        height: getHeight()
                     },
-                    theme
+                    legend: {
+                        visible: false,
+                    },
+                    theme: {
+                        series: {
+                            colors: [getColor()],
+                        },
+                    },
                 };
 
                 timer.start();
-                chart.scatterChart({ el, data, options });
+                const chart = toastui.Chart.scatterChart({
+                    el,
+                    data,
+                    options
+                });
                 timer.stop();
                 timer.print();
             };
         });
+
+        const itemCount = 1000;
+        function getBarData(dataset) {
+            var data = [];
+
+            if (itemCount == 0) {
+                itemCount = dataset.length;
+            }
+
+            for (let i = 0; i < itemCount; i++) {
+                data.push({ x: i, y: dataset[i]["Total Profit"] })
+            }
+
+            return data;
+        }
+        function generateLabels() {
+            var labels = [];
+            for (let i = 0; i < itemCount; i++) {
+                labels.push(String(i));
+            }
+            return labels;
+        }
+        var colors = ["#ff0000", "#00ff00", "#0000ff"];
+        var colorIndex = 0;
+        function getColor() {
+            var color = colors[colorIndex];
+            colorIndex++;
+            if (colorIndex >= colors.length) {
+                colorIndex = 0;
+            }
+            return color;
+        }
     </script>
 </body>
